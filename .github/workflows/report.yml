@@ -103,7 +103,6 @@ jobs:
           ./xcresults-arm64 export --output ./allure-results/recordings ./test-results/recordings.xcresult
           ./xcresults-arm64 export --output ./allure-results/error ./test-results/error.xcresult
           
-          
       - name: Generate Allure 2 reports
         run: |
           npx allure-commandline generate --output ./allure-reports/unit/v2 ./allure-results/unit
@@ -113,20 +112,16 @@ jobs:
           npx allure-commandline generate --output ./allure-reports/screenshots/v2 ./allure-results/screenshots
           npx allure-commandline generate --output ./allure-reports/recordings/v2 ./allure-results/recordings
           npx allure-commandline generate --output ./allure-reports/error/v2 ./allure-results/error
-  
-      - run: sleep 10s
-  
-      - run: xcrun xcresulttool version
-        
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/destinations/mac.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/destinations/iphone16.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/destinations/merged.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/repetitions.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/testplans.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/screenshots.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/recordings.xcresult
-      - run: xcrun xcresulttool get --legacy --format json --path ./test-results/error.xcresult
-  
+
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/destinations/mac.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/destinations/iphone16.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/destinations/merged.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/repetitions.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/testplans.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/screenshots.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/recordings.xcresult
+      - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/error.xcresult
+      
       - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/mac.xcresult
       - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/iphone16.xcresult
       - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/merged.xcresult
