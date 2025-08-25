@@ -122,15 +122,6 @@ jobs:
       - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/recordings.xcresult
       - run: mdimport -m -y com.apple.xcode.resultbundle -u ./test-results/error.xcresult
       
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/mac.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/iphone16.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/destinations/merged.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/repetitions.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/testplans.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/screenshots.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/recordings.xcresult
-      - run: mdls -raw -attr kMDItemContentTypeTree ./test-results/error.xcresult
-  
       - name: Generate Allure 3 reports
         run: |
           npx allure awesome --output ./allure-reports/unit/v3 ./test-results/destinations/mac.xcresult
