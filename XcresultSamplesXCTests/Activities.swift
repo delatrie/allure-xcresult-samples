@@ -81,4 +81,32 @@ final class Activities: XCTestCase {
             activity.add(attachment)
         })
     }
+    
+    func testStepAttachments() throws {
+        XCTContext.runActivity(named: "Step 1") { activity in
+            XCTContext.runActivity(named: "Step 1.1") { _ in
+                
+            }
+            
+            // Activity start/stop timestamps has resolution of 1 millisecond in xcresult
+            // We use sleep calls, so the structure of steps in Allure Report matches the
+            // chronology of activities/attachments in the source code.
+            Thread.sleep(forTimeInterval: 0.01)
+            
+            let attachment = XCTAttachment(string: "Lorem Ipsum")
+            activity.add(attachment)
+            
+            Thread.sleep(forTimeInterval: 0.01)
+            
+            XCTContext.runActivity(named: "Step 1.2") { _ in
+                
+            }
+            
+            Thread.sleep(forTimeInterval: 0.01)
+            
+            XCTContext.runActivity(named: "Step 1.3") { _ in
+                
+            }
+        }
+    }
 }
